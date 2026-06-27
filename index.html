@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이와사키 레이나 - 짱돌위키</title>
     <style>
-        /* 기본 배경 및 폰트 설정 (다크모드) */
+        /* 기본 */
         body {
             background-color: #1f1f1f;
             color: #eeeeee;
@@ -15,7 +15,7 @@
             line-height: 1.6;
         }
 
-        /* 1. 상단 좌측 로고 */
+        /* 1. 위키로고 */
         .wiki-header {
             background-color: #2c2c2c;
             border-bottom: 1px solid #444;
@@ -28,14 +28,14 @@
             letter-spacing: -1px;
         }
 
-        /* 메인 컨텐츠 영역 제한 */
+        /* 메인 영역 */
         .wiki-main {
             max-width: 1100px;
             margin: 0 auto;
             padding: 30px 20px;
         }
 
-        /* 2. 문서 제목 및 최근 수정 날짜 */
+        /* 제목이랑 날짜 */
         .wiki-title-section {
             border-bottom: 1px solid #444;
             padding-bottom: 15px;
@@ -52,7 +52,7 @@
             margin: 0;
         }
 
-        /* 3. 반응형 레이아웃 컨테이너 */
+        /* 과연반응형으로잘굴러갈것인가!? */
         .top-content-wrapper {
             display: flex;
             flex-direction: column;
@@ -76,7 +76,7 @@
             }
         }
 
-        /* 프로필 표 스타일 */
+        /* 나무위키를베낀프로필ㅋ */
         .profile-table {
             width: 100%;
             border-collapse: collapse;
@@ -115,7 +115,7 @@
             color: #eeeeee;
         }
 
-        /* 목차 스타일 */
+        /* 나무위키를베낀목차ㅋ */
         .toc-box {
             border: 1px solid #444;
             background-color: #222;
@@ -152,7 +152,7 @@
             text-decoration: underline;
         }
 
-        /* 본문 폴딩 및 제목(앵커) 스타일 */
+        /* 이거뭐라해?목차접는거랑앵커 */
         .wiki-content {
             margin-top: 40px;
         }
@@ -176,7 +176,7 @@
             margin: 0 0 10px 0;
         }
         
-        /* 제목 내 앵커 링크 스타일 */
+        /* 앵커 */
         summary h2 a, .section-body h3 a {
             color: inherit;
             text-decoration: none;
@@ -190,10 +190,10 @@
             color: #cccccc;
         }
 
-        /* 설정화 갤러리 레이아웃 (세로 길이 500px 고정) */
+        /* 설정화 */
         .gallery-wrapper {
             width: 100%;
-            overflow-x: auto; /* 모바일에서 표가 잘리지 않고 스크롤되도록 */
+            overflow-x: auto;
             margin-top: 10px;
             margin-bottom: 15px;
         }
@@ -208,8 +208,8 @@
             padding: 0;
         }
         .gallery-image-cell img {
-            height: 500px; /* 세로 길이 500px */
-            width: auto; /* 가로 길이는 비율에 맞게 자동 조절 */
+            height: 500px;
+            width: auto;
             display: block;
         }
         .gallery-label {
@@ -220,7 +220,7 @@
             font-size: 0.9em;
         }
 
-        /* 각주 스타일 */
+        /* 각주 */
         .footnote-link {
             color: #FFC4BC;
             text-decoration: none;
@@ -265,7 +265,7 @@
 
         <div class="top-content-wrapper">
             
-            <!-- 우측(PC) / 상단(모바일) : 프로필 표 -->
+            <!-- PC에서 좌측, 모바일에서 상단에 프로필 표 -->
             <aside class="profile-section">
                 <table class="profile-table">
                     <tr>
@@ -296,7 +296,7 @@
                 </table>
             </aside>
 
-            <!-- 좌측(PC) / 하단(모바일) : 목차 -->
+            <!-- PC에서 우측, 모바일에서 하단에 목차 -->
             <nav class="toc-section">
                 <div class="toc-box">
                     <div class="toc-title">목차</div>
@@ -324,7 +324,7 @@
 
         </div>
 
-        <!-- 4. 본문 내용 -->
+        <!-- 본문 내용 -->
         <div class="wiki-content">
             
             <details open>
@@ -405,11 +405,11 @@
 
         </div>
 
-        <!-- 5. 각주 영역 -->
+        <!-- 각주달면끝 -->
         <footer class="footnotes-section">
             <ul>
                 <li id="fn1"><a href="#r-fn1">[1]</a> 학교 복도에서 모르는 남학생에게 고백을 받았을 때 아무렇게나 던진 말이다. 누군가가 떠오르는 특징이다.</li>
-                <li id="fn2"><a href="#r-fn2">[2]</a> 임파첸스(서양봉선화)의 꽃말은 '나의 사랑은 당신보다 깊다', '사랑의 기다림', '인내' 등으로 레이나의 서사와 일맥상통하는 뜻을 가지고 있다.</li>
+                <li id="fn2"><a href="#r-fn2">[2]</a> 임파첸스(서양봉선화)의 꽃말은 '나의 사랑은 당신보다 깊다', '사랑의 기다림', '인내' 등으로 레이나의 서사와 은근히 들어맞는다.</li>
             </ul>
         </footer>
 
