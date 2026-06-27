@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이와사키 레이나 - 짱돌위키</title>
+    <style>
+        /* 기본 배경 및 폰트 설정 (다크모드) */
+        body {
+            background-color: #1f1f1f;
+            color: #eeeeee;
+            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* 1. 상단 좌측 로고 */
+        .wiki-header {
+            background-color: #2c2c2c;
+            border-bottom: 1px solid #444;
+            padding: 15px 20px;
+        }
+        .wiki-logo {
+            font-size: 1.2em;
+            font-weight: 900;
+            color: white;
+            letter-spacing: -1px;
+        }
+
+        /* 메인 컨텐츠 영역 제한 */
+        .wiki-main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* 2. 문서 제목 및 최근 수정 날짜 */
+        .wiki-title-section {
+            border-bottom: 1px solid #444;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        .wiki-title-section h1 {
+            font-size: 2.5em;
+            margin: 0 0 10px 0;
+            color: #ffffff;
+        }
+        .wiki-title-section .edit-date {
+            color: #aaaaaa;
+            font-size: 0.9em;
+            margin: 0;
+        }
+
+        /* 3. 반응형 레이아웃 컨테이너 */
+        .top-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .top-content-wrapper {
+                flex-direction: row-reverse;
+                align-items: flex-start;
+                justify-content: space-between;
+            }
+            .profile-section {
+                width: 350px;
+                flex-shrink: 0;
+                margin-left: 20px;
+            }
+            .toc-section {
+                flex-grow: 1;
+                max-width: 450px;
+            }
+        }
+
+        /* 프로필 표 스타일 */
+        .profile-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid #FFC4BC;
+            font-size: 0.9em;
+        }
+        .profile-table th, .profile-table td {
+            border: 1px solid #FFC4BC;
+            padding: 10px;
+        }
+        .profile-header {
+            background-color: #FFC4BC;
+            color: #111;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .profile-image-cell {
+            background-color: #2b2b2b;
+            text-align: center;
+            padding: 0;
+        }
+        .profile-image-cell img {
+            width: 100%;
+            display: block;
+        }
+        .profile-table .label {
+            background-color: #ffe6e2;
+            color: #111;
+            font-weight: bold;
+            text-align: center;
+            width: 30%;
+        }
+        .profile-table .value {
+            background-color: #2b2b2b;
+            color: #eeeeee;
+        }
+
+        /* 목차 스타일 */
+        .toc-box {
+            border: 1px solid #444;
+            background-color: #222;
+            padding: 20px;
+            border-radius: 3px;
+            display: inline-block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .toc-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+        }
+        .toc-list {
+            list-style: none;
+            padding-left: 5px;
+            margin: 0;
+        }
+        .toc-list ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+        .toc-list li {
+            margin-bottom: 5px;
+        }
+        .toc-list a {
+            color: #FFC4BC; 
+            text-decoration: none;
+        }
+        .toc-list a:hover {
+            text-decoration: underline;
+        }
+
+        /* 본문 폴딩 및 제목(앵커) 스타일 */
+        .wiki-content {
+            margin-top: 40px;
+        }
+        details {
+            background-color: #222;
+            border: 1px solid #444;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 15px;
+        }
+        summary {
+            cursor: pointer;
+            outline: none;
+            color: #ffffff;
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        summary h2, .section-body h3 {
+            display: inline-block;
+            margin: 0 0 10px 0;
+        }
+        
+        /* 제목 내 앵커 링크 스타일 */
+        summary h2 a, .section-body h3 a {
+            color: inherit;
+            text-decoration: none;
+        }
+        summary h2 a:hover, .section-body h3 a:hover {
+            text-decoration: underline;
+        }
+
+        .section-body {
+            padding-left: 10px;
+            color: #cccccc;
+        }
+
+        /* 설정화 갤러리 레이아웃 (세로 길이 500px 고정) */
+        .gallery-wrapper {
+            width: 100%;
+            overflow-x: auto; /* 모바일에서 표가 잘리지 않고 스크롤되도록 */
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        .gallery-table {
+            border-collapse: collapse;
+            border: 2px solid #FFC4BC;
+            margin: 0;
+        }
+        .gallery-table td {
+            border: 1px solid #FFC4BC;
+            text-align: center;
+            padding: 0;
+        }
+        .gallery-image-cell img {
+            height: 500px; /* 세로 길이 500px */
+            width: auto; /* 가로 길이는 비율에 맞게 자동 조절 */
+            display: block;
+        }
+        .gallery-label {
+            background-color: #FFC4BC;
+            color: #111;
+            font-weight: bold;
+            padding: 8px 10px !important;
+            font-size: 0.9em;
+        }
+
+        /* 각주 스타일 */
+        .footnote-link {
+            color: #FFC4BC;
+            text-decoration: none;
+            font-size: 0.8em;
+            vertical-align: super;
+        }
+        .footnote-link:hover {
+            text-decoration: underline;
+        }
+        .footnotes-section {
+            margin-top: 50px;
+            border-top: 2px solid #FFC4BC;
+            padding-top: 20px;
+            font-size: 0.9em;
+            color: #ffffff;
+        }
+        .footnotes-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footnotes-section li {
+            margin-bottom: 10px;
+        }
+        .footnotes-section a {
+            color: #FFC4BC;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="wiki-header">
+        <div class="wiki-logo">짱돌위키</div>
+    </header>
+
+    <main class="wiki-main">
+        <div class="wiki-title-section">
+            <h1>이와사키 레이나</h1>
+            <p class="edit-date">최근 수정 시각: 2026-06-28 02:53:01</p>
+        </div>
+
+        <div class="top-content-wrapper">
+            
+            <!-- 우측(PC) / 상단(모바일) : 프로필 표 -->
+            <aside class="profile-section">
+                <table class="profile-table">
+                    <tr>
+                        <th colspan="2" class="profile-header">이와사키 레이나<br><span style="font-size: 0.8em;">Iwasaki Reina</span></th>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="profile-image-cell">
+                            <img src="profile.png" alt="이와사키 레이나 프로필">
+                        </td>
+                    </tr>
+                    <tr><td class="label">성별</td><td class="value">여성</td></tr>
+                    <tr><td class="label">생년월일</td><td class="value">2019년에 일본고3이면 몇살이냐?</td></tr>
+                    <tr><td class="label">키</td><td class="value">164.9cm</td></tr>
+                    <tr><td class="label">몸무게</td><td class="value">소녀의 비밀!</td></tr>
+                    <tr><td class="label">혈액형</td><td class="value">AB형</td></tr>
+                    <tr>
+                        <td class="label">좋아하는 타입</td>
+                        <td class="value">
+                            <del>집 앞에 F1 경기장을 만들어줄 수 있는 금발 꽃미남 재벌 2세</del><a href="#fn1" id="r-fn1" class="footnote-link">[1]</a><br>
+                            차가운 지성으로 불가능에 도전하고 따뜻한 마음으로 세상을 지키는 사람
+                        </td>
+                    </tr>
+                    <tr><td class="label">보물</td><td class="value">미정</td></tr>
+                    <tr>
+                        <td class="label">이미지 컬러</td>
+                        <td class="value">임파첸스 핑크<a href="#fn2" id="r-fn2" class="footnote-link">[2]</a></td>
+                    </tr>
+                </table>
+            </aside>
+
+            <!-- 좌측(PC) / 하단(모바일) : 목차 -->
+            <nav class="toc-section">
+                <div class="toc-box">
+                    <div class="toc-title">목차</div>
+                    <ul class="toc-list">
+                        <li><a href="#s-1">1. 개요</a></li>
+                        <li><a href="#s-2">2. 설정화</a></li>
+                        <li><a href="#s-3">3. 특징</a>
+                            <ul>
+                                <li><a href="#s-3-1">3.1. 외모</a></li>
+                                <li><a href="#s-3-2">3.2. 성격</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#s-4">4. 작중 행적</a>
+                            <ul>
+                                <li><a href="#s-4-1">4.1. 2019년</a></li>
+                                <li><a href="#s-4-2">4.2. 석화 중</a></li>
+                                <li><a href="#s-4-3">4.3. 5647년 이후</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#s-5">5. 인간관계</a></li>
+                        <li><a href="#s-6">6. IF: 만약 네가 눈을 뜬 시간이 달랐더라면</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+
+        <!-- 4. 본문 내용 -->
+        <div class="wiki-content">
+            
+            <details open>
+                <summary><h2 id="s-1"><a href="#s-1">1. 개요</a></h2></summary>
+                <div class="section-body">Dr.STONE을 기반으로 한 캐릭터. 이시가미 센쿠의 동아리 선배이자 든든한 동료였으나, 전 인류 석화 후 센쿠보다 먼저 깨어나게 된다. 15년 가까이 부활액 제작을 시도했으나 끝내 완성하지 못하고 5662년 사망. </div>
+            </details>
+
+            <details open>
+                <summary><h2 id="s-2"><a href="#s-2">2. 설정화</a></h2></summary>
+                <div class="section-body">
+                    
+                    
+                    <!-- 갤러리 영역 -->
+                    <div class="gallery-wrapper">
+                        <table class="gallery-table">
+                            <tr>
+                                <td class="gallery-image-cell"><img src="2019.png" alt="2019년 설정화"></td>
+                                <td class="gallery-image-cell"><img src="5647.png" alt="5647년 설정화"></td>
+                            </tr>
+                            <tr>
+                                <td class="gallery-label">2019년</td>
+                                <td class="gallery-label">5647년 이후</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </details>
+
+            <details open>
+                <summary><h2 id="s-3"><a href="#s-3">3. 특징</a></h2></summary>
+                <div class="section-body">
+                    <h3 id="s-3-1"><a href="#s-3-1">3.1. 외모</a></h3>
+                    <p>초베리큐티 갸루!</p>
+                    
+                    <h3 id="s-3-2"><a href="#s-3-2">3.2. 성격</a></h3>
+                    <p>초베리큐티갸루!!!!</p>
+                </div>
+            </details>
+
+            <details open>
+                <summary><h2 id="s-4"><a href="#s-4">4. 작중 행적</a></h2></summary>
+                <div class="section-body">
+                    <h3 id="s-4-1"><a href="#s-4-1">4.1. 2019년</a></h3>
+                    <p>고등학교 3학년이자 과학부 소속의 학생이다. 동아리 입부 신청서를 검토하던 중 달에 가겠다는 원대한 목표를 '내일 놀이공원에 가겠다' 수준의 일상적인 어조로 적어놓은 이시가미 센쿠의 신청서를 발견하고 크게 당황한다.
+
+첫 대면 당시 센쿠가 누구에게나 "어이, 테메!"라고 부르는 것을 보고 '저 싸가지는 대체 뭐지?'라고 생각한다. 그러나 센쿠의 거친 언행 속에 숨겨진 압도적인 과학적 지식과 열정을 곧바로 알아챘고, 이후 흥미를 느끼며 그를 지켜보기 시작한다.
+
+며칠 뒤 신입생 환영회 겸 야간 천체 관측에 참여한다. 모두가 야식과 잡담에 열을 올릴 때 밤하늘을 관찰하기 위해 밖으로 나온 레이나는 그곳에서 먼저 별을 보고 있던 센쿠를 마주치게 된다. 단둘이 별과 우주에 대해 깊이 있는 대화를 나누며 서로의 가치관을 공유하게 된 이 사건을 기점으로 레이나는 센쿠를 과학자로서 전적으로 신뢰하고 응원하게 된다. 센쿠 역시 레이나를 '대화가 꽤 잘 통하는 녀석'이라며 레이나를 인정하기 시작한다.
+
+이후 둘은 방과 후 공터에서 실험을 이어가거나 연락을 주고받으며 급속도로 가까워진다. 2019년 5월, 레이나는 석화 상태의 제비를 발견한다. 사태의 심각성을 느낀 레이나는 제비 석상을 수집하여 표면을 관찰하고, 센쿠와 며칠 밤을 새워가며 해당 현상을 연구한다.
+
+2019년 6월, 정체불명의 초록색 광선이 지구를 덮친다. 당시 화장실에서 메이크업을 수정하고 교실로 돌아가던 중이었던 레이나는 멀리서 사람들이 돌처럼 굳어가는 것을 보고 곧바로 머리를 감싸 쥐며 웅크린 방어 자세를 취한다.</p>
+                    
+                    <h3 id="s-4-2"><a href="#s-4-2">4.2. 석화 중</a></h3>
+                    <p>석화 이후 레이나는 전 세계를 덮친 초록색 광선과 제비 석화 사건의 연관성을 직관적으로 파악한다. 전 지구적 규모로 제비가 석화되었다는 사실로부터 인류 역시 전원 석화되었을 것이라는 결론에 도달한다.
+
+어떻게 생명체가 돌이 될 수 있는지, 돌이 된 상태에서 의식을 유지할 수 있는 원리가 무엇인지, 초록색 광선의 정체는 무엇인지, 제비가 석화되었을 때는 왜 초록색 광선이 보이지 않았는지 생각하며 혼란스러워 한다.
+
+석화 초기에는 정확한 시간의 흐름을 측정하려 시도했으나 4년 정도가 흐른 시점에서 오차가 너무 커졌을 것이라고 확신하며 시간 측정을 포기한다. 석화 광선의 정체, 기초적인 과학 이론, 아포칼립스 상황에서의 생존법, 그리고 센쿠의 생사 여부 등을 떠올리며 의식 유지에 총력을 다했다.
+</p>
+                    
+                    <h3 id="s-4-3"><a href="#s-4-3">4.3. 5647년 이후</a></h3>
+                    <p>5647년 9월, 레이나는 동굴 근처에서 의식을 되찾고 깨어난다. 석화 중 시간 측정을 포기했기에 레이나 본인은 정확한 날짜와 시간을 알 수 없었지만, 주변 생태계와 환경 변화를 관찰하며 대략적인 시기를 추정한다. 겨울이 오기 전까지 약 3개월밖에 남지 않은 촉박한 상황 속에서, 레이나는 오로지 생존과 겨울 대비에만 집중했다. 운이 따라준 덕분에 혹독한 첫겨울을 무사히 넘기는 데 성공한다.
+
+5649년, 생활이 어느 정도 안정되자 레이나는 석화된 센쿠를 찾기 시작한다. 센쿠의 석상을 발견한 레이나는 그를 자신의 거처로 옮겨온다. 제비 연구 경험과 석화 당시의 기억을 토대로 부활액 제작에 착수한다. 센쿠가 훗날 완성하게 될 석화 부활액과 유사한 아이디어에 도달하며 과학적 역량을 보여주었으나, 부활액을 완성하지 못한 채 5662년에 사망한다.</p>
+                </div>
+            </details>
+
+            <details open>
+                <summary><h2 id="s-5"><a href="#s-5">5. 인간관계</a></h2></summary>
+                <div class="section-body">아는사람: 센쿠, 유즈리하, 타이쥬</div>
+            </details>
+
+            <details open>
+                <summary><h2 id="s-6"><a href="#s-6">6. IF: 만약 네가 눈을 뜬 시간이 달랐더라면</a></h2></summary>
+                <div class="section-body">IF 세계관의 이야기를 기록합니다. 언젠가 추가될 예정!</div>
+            </details>
+
+        </div>
+
+        <!-- 5. 각주 영역 -->
+        <footer class="footnotes-section">
+            <ul>
+                <li id="fn1"><a href="#r-fn1">[1]</a> 학교 복도에서 모르는 남학생에게 고백을 받았을 때 아무렇게나 던진 말이다. 누군가가 떠오르는 특징이다.</li>
+                <li id="fn2"><a href="#r-fn2">[2]</a> 임파첸스(서양봉선화)의 꽃말은 '나의 사랑은 당신보다 깊다', '사랑의 기다림', '인내' 등으로 레이나의 서사와 일맥상통하는 뜻을 가지고 있다.</li>
+            </ul>
+        </footer>
+
+    </main>
+
+</body>
+</html>
