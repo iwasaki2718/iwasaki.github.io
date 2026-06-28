@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>하야시 미도리 - 짱돌위키</title>
+    <style>
+        /* 기본 */
+        body {
+            background-color: #1f1f1f;
+            color: #eeeeee;
+            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* 위키로고 */
+        .wiki-header {
+            background-color: #2c2c2c;
+            border-bottom: 1px solid #444;
+            padding: 15px 20px;
+        }
+        .wiki-logo {
+            font-size: 1.2em;
+            font-weight: 900;
+            color: white;
+            letter-spacing: -1px;
+        }
+
+        /* 메인 영역 */
+        .wiki-main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* 제목이랑 날짜 */
+        .wiki-title-section {
+            border-bottom: 1px solid #444;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        .wiki-title-section h1 {
+            font-size: 2.5em;
+            margin: 0 0 10px 0;
+            color: #ffffff;
+        }
+        .wiki-title-section .edit-date {
+            color: #aaaaaa;
+            font-size: 0.9em;
+            margin: 0;
+        }
+
+        /* 과연반응형으로잘굴러갈것인가!? */
+        .top-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .top-content-wrapper {
+                flex-direction: row-reverse;
+                align-items: flex-start;
+                justify-content: space-between;
+            }
+            .profile-section {
+                width: 350px;
+                flex-shrink: 0;
+                margin-left: 20px;
+            }
+            .toc-section {
+                flex-grow: 1;
+                max-width: 450px;
+            }
+        }
+
+        /* 나무위키를베낀프로필ㅋ */
+        .profile-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid #FFC4BC;
+            font-size: 0.9em;
+        }
+        .profile-table th, .profile-table td {
+            border: 1px solid #FFC4BC;
+            padding: 10px;
+        }
+        .profile-header {
+            background-color: #FFC4BC;
+            color: #111;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .profile-image-cell {
+            background-color: #2b2b2b;
+            text-align: center;
+            padding: 0;
+        }
+        .profile-image-cell img {
+            width: 100%;
+            display: block;
+        }
+        .profile-table .label {
+            background-color: #ffe6e2;
+            color: #111;
+            font-weight: bold;
+            text-align: center;
+            width: 30%;
+        }
+        .profile-table .value {
+            background-color: #2b2b2b;
+            color: #eeeeee;
+        }
+
+        /* 나무위키를베낀목차ㅋ */
+        .toc-box {
+            border: 1px solid #444;
+            background-color: #222;
+            padding: 20px;
+            border-radius: 3px;
+            display: inline-block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .toc-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+        }
+        .toc-list {
+            list-style: none;
+            padding-left: 5px;
+            margin: 0;
+        }
+        .toc-list ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+        .toc-list li {
+            margin-bottom: 5px;
+        }
+        .toc-list a {
+            color: #FFC4BC; 
+            text-decoration: none;
+        }
+        .toc-list a:hover {
+            text-decoration: underline;
+        }
+
+        /* 이거뭐라해?목차접는거랑앵커 */
+        .wiki-content {
+            margin-top: 40px;
+        }
+        details {
+            background-color: #222;
+            border: 1px solid #444;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 15px;
+        }
+        summary {
+            cursor: pointer;
+            outline: none;
+            color: #ffffff;
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        summary h2, .section-body h3 {
+            display: inline-block;
+            margin: 0 0 10px 0;
+        }
+        
+        /* 앵커 */
+        summary h2 a, .section-body h3 a {
+            color: inherit;
+            text-decoration: none;
+        }
+        summary h2 a:hover, .section-body h3 a:hover {
+            text-decoration: underline;
+        }
+
+        .section-body {
+            padding-left: 10px;
+            color: #cccccc;
+        }
+
+        /* 설정화 */
+        .gallery-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        .gallery-table {
+            border-collapse: collapse;
+            border: 2px solid #FFC4BC;
+            margin: 0;
+        }
+        .gallery-table td {
+            border: 1px solid #FFC4BC;
+            text-align: center;
+            padding: 0;
+        }
+        .gallery-image-cell img {
+            height: 500px;
+            width: auto;
+            display: block;
+        }
+        .gallery-label {
+            background-color: #FFC4BC;
+            color: #111;
+            font-weight: bold;
+            padding: 8px 10px !important;
+            font-size: 0.9em;
+        }
+
+        /* 각주 */
+        .footnote-link {
+            color: #FFC4BC;
+            text-decoration: none;
+            font-size: 0.8em;
+            vertical-align: super;
+        }
+        .footnote-link:hover {
+            text-decoration: underline;
+        }
+        .footnotes-section {
+            margin-top: 50px;
+            border-top: 2px solid #FFC4BC;
+            padding-top: 20px;
+            font-size: 0.9em;
+            color: #ffffff;
+        }
+        .footnotes-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footnotes-section li {
+            margin-bottom: 10px;
+        }
+        .footnotes-section a {
+            color: #FFC4BC;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="wiki-header">
+        <div class="wiki-logo">짱돌위키</div>
+    </header>
+
+    <main class="wiki-main">
+        <div class="wiki-title-section">
+            <h1>하야시 미도리</h1>
+            <p class="edit-date">최근 수정 시각: 2026-06-28 13:34:49</p>
+        </div>
+
+        
+        <!-- 본문 내용 -->
+        <div class="wiki-content">
+            
+            <details open>
+                <summary><h2 id="s-1"><a href="#s-1">1. 개요</a></h2></summary>
+                <div class="section-body">미도리쨩은귀엽습니다. ♥️ </div>
+            </details>
+
+        </div>
+
+    </main>
+
+</body>
+</html>
